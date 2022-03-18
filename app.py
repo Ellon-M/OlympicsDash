@@ -14,24 +14,6 @@ app = Dash(
 
 df = pd.read_csv('./Olympics Dataset.csv') 
 
-def generate_seasons(season):
-        if season == "Summer":
-            summ = df.query('Season == "Summer"')
-            summ = summ.reset_index()
-           
-            return summ
-
-        elif season == "Winter":
-            win = df.query('Season == "Winter"')
-            win = win.reset_index()
-
-            return win
-
-        else:
-            raise ValueError('Incorrectly specified data.')
-
-
-
 
 app.layout = html.Div(
             className="container",
@@ -146,27 +128,20 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
     else:
         refresh = None
         pass
-    
-    print(changes)
 
      
     if (('summer-btn.n_clicks' in changes) and 'winter-btn.n_clicks' not in changes):
         
-
-         print('sum')
          kv_sports = [{"label":str(sum_sport), "value": str(sum_sport)} for sum_sport in sum_sports_list]
          kv_sports.append({"label": "All", "value": "All"})
-
 
          kv_years = [{"label":str(sum_year), "value": str(sum_year)} for sum_year in sum_years]
          kv_years.append({"label": "All", "value": "All"})
 
 
          if (country != None and year != None and sport != None):
-
         
             country_summer_year_sport = country_summer.query('Sport == "{}" and Year == {}'.format(sport, year))
-             
 
             main_fig = px.bar(country_summer_year_sport, x = "Event")
             main_fig.update_layout(
@@ -206,7 +181,6 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                    )
 
 
-
          elif (country != None and year == None and sport == None):
              country_summer_medals = country_summer[~country_summer['Medal'].isnull()]
              country_summer_medals_count = country_summer_medals.groupby(['Year']).count()['Medal'].to_frame().reset_index()
@@ -237,16 +211,8 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
          else:
              raise ValueError("Incorrectly specified data")
     
-
-
     elif (('winter-btn.n_clicks' in changes)):
-        #print('win') 
-        last_change = changes[-1:]
-        clicks_change = ['year-dropdown.value', 'event-dropdown.value', 'summer-btn.n_clicks']
         
-        #for click in clicks_change:
-        #    if click in changes:
-        #       changes.remove(click)
         changes.clear()
 
 
@@ -258,12 +224,11 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
 
 
 
-
         if (country != None and year != None and sport != None):
 
              country_winter_year_sport = country_winter.query('Sport == "{}" and Year == {}'.format(sport, year))
 
-             main_fig = px.bar(country_winter_year_sport, x = "Event")
+             main_fig = px.bar(country_winter_year_sport, x = "Event", y = "ID")
              main_fig.update_layout(
                                     title="Winter Events in {}, {}".format(sport, year),
                                     paper_bgcolor='rgba(0,0,0,0)',
@@ -336,7 +301,6 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
          kv_sports = [{"label":str(sum_sport), "value": str(sum_sport)} for sum_sport in sum_sports_list]
          kv_sports.append({"label": "All", "value": "All"})
 
-
          kv_years = [{"label":str(sum_year), "value": str(sum_year)} for sum_year in sum_years]
          kv_years.append({"label": "All", "value": "All"})
          
@@ -349,36 +313,51 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
              kv_years = [{"label":str(win_year), "value": str(win_year)} for win_year in win_years]
              kv_years.append({"label": "All", "value": "All"})
 
-
              print('changes', changes)
 
              if (country != None and year != None and sport != None):
-                 country_winter_year_sport = country_winter.query('Sport == "{}" and Year == {}'.format(sport, year))
+                 cwys = country_winter.groupby(['Sport', 'Year', 'Event', 'Sex']).count()['ID'].to_frame().reset_index()
+                 cwys = cwys.rename(columns={'ID': 'Athlete Count'})
+
+                 country_winter_year_sport = cwys.query('Sport == "{}" and Year == {}'.format(sport, year))
 
 
-                 main_fig = px.bar(country_winter_year_sport, x = "Event")
+                 main_fig = px.bar(country_winter_year_sport, x = "Event", y="Athlete Count", text="Athlete Count", 
+                            hover_data=["Athlete Count"], color="Sex", 
+                            color_discrete_map={
+                                              'M': '#1434A4',
+                                              'F': '#088F8F'
+                                             }
+                            )
                  main_fig.update_layout(
                                     title="Winter Events in {}, {}".format(sport, year),
                                     paper_bgcolor='rgba(0,0,0,0)',
                                     plot_bgcolor='rgba(0,0,0,0)',
                                     font = dict(size=14),
+                                    yaxis_title="Athlete count",
                                    )
 
 
-
              elif (country != None and year != None):
-                country_winter_year = country_winter.query('Year == {}'.format(year))
+                 cwy = country_winter.groupby(['Event', 'Year']).count().reset_index()
+                 cwy = cwy.rename(columns={'ID': 'Athlete-count'})
 
-                main_fig = px.histogram(country_winter_year, x = "Event")
-                main_fig.update_layout(bargap=0.1,
+                 country_winter_year = cwy.query('Year == {}'.format(year))
+                
+                 main_fig = px.bar(country_winter_year, x = "Event", y="Athlete-count", 
+                                   hover_data=["Athlete-count"], color="Athlete-count", color_continuous_scale="teal")
+
+                 main_fig.update_layout(bargap=0.1,
                                     xaxis = dict(showticklabels=False),
-                                    title="Winter Events, {}".format(year),
+                                    title="Winter Events, {}".format(2002),
                                     paper_bgcolor='rgba(0,0,0,0)',
                                     plot_bgcolor='rgba(0,0,0,0)',
                                     font = dict(size=14),
                                     )
+                
 
-             elif (country != None and sport != None):
+
+             elif (country != None and sport != None and year == None):
                  country_winter_year = country_winter.query('Sport == {}'.format(year))
 
                  main_fig = px.histogram(country_winter_year, x = "Event")
@@ -405,7 +384,6 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                              showscale=True
                             )
                 ))
-
 
                 main_fig.update_layout(
                     title="Winter Medal Count Over Time",
@@ -435,7 +413,6 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                    )
 
 
-
             elif (country != None and year != None):
                 country_summer_year = country_summer.query('Year == {}'.format(year))
 
@@ -459,7 +436,6 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                     plot_bgcolor='rgba(0,0,0,0)',
                                     font = dict(size=14),
                                    )
-
 
 
             elif (country != None and year == None and sport == None):
