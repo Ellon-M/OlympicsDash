@@ -80,10 +80,7 @@ app.layout = html.Div(
                 ),
                 html.Div(
                         id="graph-content",
-                        ),
-                html.Div(
-                    id="stats-content"
-                )
+                        )
                 ]
 )
 
@@ -144,7 +141,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
 
          if (country != None and year != None and sport != None):
                  csys = country_summer.groupby(['Sport', 'Year', 'Event', 'Sex']).count()['ID'].to_frame().reset_index()
-                 csys = csys.rename(columns={'ID': 'Athlete Count'})
+                 csys = cwys.rename(columns={'ID': 'Athlete Count'})
  
                  country_summer_year_sport = csys.query('Sport == "{}" and Year == {}'.format(sport, year))
  
@@ -169,11 +166,11 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
 
          elif (country != None and year != None and sport == None):
              csy = country_summer.groupby(['Event', 'Year']).count().reset_index()
-             csy = csy.rename(columns={'ID': 'Athlete-count'})
+             csy = cwy.rename(columns={'ID': 'Athlete-count'})
  
              country_summer_year = csy.query('Year == {}'.format(year))
  
-             main_fig = px.bar(country_summer_year, x = "Event", y="Athlete-count", text = "Athlete-count",
+             main_fig = px.bar(country_summer_year, x = "Event", y="Athlete-count",
                                      hover_data=["Athlete-count"], color="Athlete-count", color_continuous_scale="sunset")
  
              main_fig.update_layout(bargap=0.1,
@@ -193,7 +190,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                    country_summer_sp = css.query('Sport == "{}"'.format(sport))
  
  
-                   main_fig = px.bar(country_summer_sp, x = "Event", y="Athlete-count", text="Athlete-count",
+                   main_fig = px.bar(country_summer_sp, x = "Event", y="Athlete-count",
                                      hover_data=["Athlete-count"],
                                      color="Athlete-count", color_continuous_scale="sunset")
  
@@ -203,7 +200,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                           paper_bgcolor='rgba(0,0,0,0)',
                                           plot_bgcolor='rgba(0,0,0,0)',
                                           font = dict(size=14),
-                                           )
+                                          )
 
 
          elif (country != None and year == None and sport == None):
@@ -217,7 +214,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                              marker=dict(
                              size=18,
                              color= country_summer_medals_count['Medal'],
-                             colorscale='Burg',
+                             colorscale='magenta',
                              showscale=True
                             )
                         ))  
@@ -279,7 +276,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                   country_winter_sp = cws.query('Sport == "{}"'.format(sport))
  
  
-                  main_fig = px.bar(country_winter_sp, x = "Event", y="Athlete-count", text="Athlete-count",
+                  main_fig = px.bar(country_winter_sp, x = "Event", y="Athlete-count",
                                     hover_data=["Athlete-count"],
                                     color="Athlete-count", color_continuous_scale="teal")
  
@@ -298,7 +295,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
  
                   country_winter_year = cwy.query('Year == {}'.format(year))
  
-                  main_fig = px.bar(country_winter_year, x = "Event", y="Athlete-count", text="Athlete-count",
+                  main_fig = px.bar(country_winter_year, x = "Event", y="Athlete-count",
                                     hover_data=["Athlete-count"], color="Athlete-count", color_continuous_scale="teal")
  
                   main_fig.update_layout(bargap=0.1,
@@ -390,7 +387,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
 
                  country_winter_year = cwy.query('Year == {}'.format(year))
                 
-                 main_fig = px.bar(country_winter_year, x = "Event", y="Athlete-count", text="Athlete-count",
+                 main_fig = px.bar(country_winter_year, x = "Event", y="Athlete-count", 
                                    hover_data=["Athlete-count"], color="Athlete-count", color_continuous_scale="teal")
 
                  main_fig.update_layout(bargap=0.1,
@@ -410,7 +407,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                  country_winter_sp = cws.query('Sport == "{}"'.format(sport))
                  
 
-                 main_fig = px.bar(country_winter_sp, x = "Event", y="Athlete-count", text="Athlete-count",
+                 main_fig = px.bar(country_winter_sp, x = "Event", y="Athlete-count", 
                                    hover_data=["Athlete-count"], 
                                    color="Athlete-count", color_continuous_scale="teal")
 
@@ -457,7 +454,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
             
             if (country != None and year != None and sport != None):
                 csys = country_summer.groupby(['Sport', 'Year', 'Event', 'Sex']).count()['ID'].to_frame().reset_index()
-                csys = csys.rename(columns={'ID': 'Athlete Count'})
+                csys = cwys.rename(columns={'ID': 'Athlete Count'})
  
                 country_summer_year_sport = csys.query('Sport == "{}" and Year == {}'.format(sport, year))
  
@@ -482,11 +479,11 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
             elif (country != None and year != None and sport == None):
                     
                   csy = country_summer.groupby(['Event', 'Year']).count().reset_index()
-                  csy = csy.rename(columns={'ID': 'Athlete-count'})
+                  csy = cwy.rename(columns={'ID': 'Athlete-count'})
  
                   country_summer_year = csy.query('Year == {}'.format(year))
  
-                  main_fig = px.bar(country_summer_year, x = "Event", y="Athlete-count", text="Athlete-count",
+                  main_fig = px.bar(country_summer_year, x = "Event", y="Athlete-count",
                                     hover_data=["Athlete-count"], color="Athlete-count", color_continuous_scale="sunset")
  
                   main_fig.update_layout(bargap=0.1,
@@ -506,7 +503,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                   country_summer_sp = css.query('Sport == "{}"'.format(sport))
  
 
-                  main_fig = px.bar(country_summer_sp, x = "Event", y="Athlete-count", text="Athlete-count",
+                  main_fig = px.bar(country_summer_sp, x = "Event", y="Athlete-count",
                                     hover_data=["Athlete-count"],
                                     color="Athlete-count", color_continuous_scale="sunset")
  
@@ -564,229 +561,8 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
           ]
 
 
-@app.callback(
-             Output('stats-content','children'),
-    inputs = [Input('countries-dropdown', 'value'),
-              Input('year-dropdown', 'value'),
-              Input('event-dropdown', 'value'),
-              Input('summer-btn', 'n_clicks'),
-              Input('winter-btn', 'n_clicks')
-             ]
-)
-def getStats(country, year, sport, summerbtn, winterbtn):
-     
-     country_winter = df.query('Team == "{}" and Season == "Winter"'.format(country))
-     country_summer = df.query('Team == "{}" and Season == "Summer"'.format(country))
-
-    
-     if (('summer-btn.n_clicks' in changes) and 'winter-btn.n_clicks' not in changes):
-        # most repped
-        athletes = country_summer.Name.value_counts().to_frame()
-        athletes = athletes.rename(columns={'Name': 'reps'})
-        athlete_df = country_summer.query("""Name == '{}'""".format(athletes.index[0])).reset_index()
-        games_athlete = athlete_df.groupby(['Games']).count()
-        mr_ath = {"athlete": athletes.index[0], "Sex": athlete_df.Sex[0],  "reps": athletes.reps[0], "Games": games_athlete.index.values}
-
-        # most decorated
-        country_sum_med = country_summer[~country_summer['Medal'].isnull()]
-        decorated = country_sum_med.Name.value_counts().to_frame()
-        decorated = decorated.rename(columns={'Name':'Dec'})
-        dec_df = country_summer.query("""Name == '{}'""".format(decorated.index[0]))
-        dec_df_gold = dec_df[dec_df.Medal == "Gold"]
-        dec_df_sil = dec_df[dec_df.Medal == "Silver"]
-        dec_df_br = dec_df[dec_df.Medal == "Bronze"]
-        dec_gold = len(dec_df_gold)
-        dec_silver = len(dec_df_sil)
-        dec_bronze = len(dec_df_br)
-        md_ath = {"athlete": decorated.index[0], "decs": decorated.Dec[0], "gold": dec_gold, "silver": dec_silver, "bronze": dec_bronze}
-
-        if (country != None and year != None):
-            # most participated event
-            country_summer_year = country_summer.query('Year == {}'.format(year))
-            country_ev = country_summer_year.groupby('Event').count().sort_values(by=['ID'], ascending=False)
-            mp_ev = {"event": country_ev.index[0], "participation": country_ev.Name[0]}
-
-            # most won event
-            country_sum_med_yr = country_summer_year[~country_summer_year['Medal'].isnull()]
-            country_won = country_sum_med_yr.Event.value_counts().to_frame()
-            country_won = country_won.rename(columns={"Event": "Won"})
-            mw_ev = {"event": country_won.index[0], "won": country_won.Won[0]}
-        
-        else:
-             # most participated event
-             country_ev = country_summer.groupby('Event').count().sort_values(by=['ID'], ascending=False)
-             mp_ev = {"event": country_ev.index[0], "participation": country_ev.Name[0]}
-
-             # most won event 
-             country_won = country_sum_med.Event.value_counts().to_frame()
-             country_won = country_won.rename(columns={"Event": "Won"})
-             mw_ev = {"event": country_won.index[0], "won": country_won.Won[0]}
-
-     elif (('winter-btn.n_clicks' in changes)):  
-         # most repped
-         athletes = country_winter.Name.value_counts().to_frame()
-         athletes = athletes.rename(columns={'Name': 'reps'})
-         athlete_df = country_winter.query("""Name == '{}'""".format(athletes.index[0])).reset_index()
-         games_athlete = athlete_df.groupby(['Games']).count()
-         mr_ath = {"athlete": athletes.index[0], "Sex": athlete_df.Sex[0],  "reps": athletes.reps[0], "Games": games_athlete.index.values}
- 
-         # most decorated
-         country_win_med = country_winter[~country_winter['Medal'].isnull()]
-         decorated = country_win_med.Name.value_counts().to_frame()
-         decorated = decorated.rename(columns={'Name':'Dec'})
-         dec_df = country_winter.query("""Name == '{}'""".format(decorated.index[0]))
-         dec_df_gold = dec_df[dec_df.Medal == "Gold"]
-         dec_df_sil = dec_df[dec_df.Medal == "Silver"]
-         dec_df_br = dec_df[dec_df.Medal == "Bronze"]
-         dec_gold = len(dec_df_gold)
-         dec_silver = len(dec_df_sil)
-         dec_bronze = len(dec_df_br)
-         md_ath = {"athlete": decorated.index[0], "decs": decorated.Dec[0], "gold": dec_gold, "silver": dec_silver, "bronze": dec_bronze}
-
-         if (country != None and year != None):
-             # most participated event
-             country_winter_year = country_winter.query('Year == {}'.format(year))
-             country_ev = country_winter_year.groupby('Event').count().sort_values(by=['ID'], ascending=False)
-             mp_ev = {"event": country_ev.index[0], "participation": country_ev.Name[0]}
- 
-             # most won event
-             country_win_med_yr = country_winter_year[~country_winter_year['Medal'].isnull()]
-             country_won = country_win_med_yr.Event.value_counts().to_frame()
-             country_won = country_won.rename(columns={"Event": "Won"})
-             mw_ev = {"event": country_won.index[0], "won": country_won.Won[0]}
- 
-         else:
-              # most participated event
-              country_ev = country_winter.groupby('Event').count().sort_values(by=['ID'], ascending=False)
-              mp_ev = {"event": country_ev.index[0], "participation": country_ev.Name[0]}
- 
-              # most won event 
-              country_won = country_win_med.Event.value_counts().to_frame()
-              country_won = country_won.rename(columns={"Event": "Won"})
-              mw_ev = {"event": country_won.index[0], "won": country_won.Won[0]}
-       
-     else:
-       if (changes[-1:] == ["winter-btn.n_clicks"] or ["year-dropdown.value"] or ["event-dropdown.value"]):
-          # most repped
-          athletes = country_winter.Name.value_counts().to_frame()
-          athletes = athletes.rename(columns={'Name': 'reps'})
-          athlete_df = country_winter.query("""Name == '{}'""".format(athletes.index[0])).reset_index()
-          games_athlete = athlete_df.groupby(['Games']).count()
-          mr_ath = {"athlete": athletes.index[0], "Sex": athlete_df.Sex[0],  "reps": athletes.reps[0], "Games": games_athlete.index.values}
- 
-          # most decorated
-          country_win_med = country_winter[~country_winter['Medal'].isnull()]
-          decorated = country_win_med.Name.value_counts().to_frame()
-          decorated = decorated.rename(columns={'Name':'Dec'})
-          dec_df = country_winter.query("""Name == '{}'""".format(decorated.index[0]))
-          dec_df_gold = dec_df[dec_df.Medal == "Gold"]
-          dec_df_sil = dec_df[dec_df.Medal == "Silver"]
-          dec_df_br = dec_df[dec_df.Medal == "Bronze"]
-          dec_gold = len(dec_df_gold)
-          dec_silver = len(dec_df_sil)
-          dec_bronze = len(dec_df_br)
-          md_ath = {"athlete": decorated.index[0], "decs": decorated.Dec[0], "gold": dec_gold, "silver": dec_silver, "bronze": dec_bronze}
- 
-          if (country != None and year != None):
-              # most participated event
-              country_winter_year = country_winter.query('Year == {}'.format(year))
-              country_ev = country_winter_year.groupby('Event').count().sort_values(by=['ID'], ascending=False)
-              mp_ev = {"event": country_ev.index[0], "participation": country_ev.Name[0]}
- 
-              # most won event
-              country_win_med_yr = country_winter_year[~country_winter_year['Medal'].isnull()]
-              country_won = country_win_med_yr.Event.value_counts().to_frame()
-              country_won = country_won.rename(columns={"Event": "Won"})
-              mw_ev = {"event": country_won.index[0], "won": country_won.Won[0]}
- 
-          else:
-               # most participated event
-               country_ev = country_winter.groupby('Event').count().sort_values(by=['ID'], ascending=False)
-               mp_ev = {"event": country_ev.index[0], "participation": country_ev.Name[0]}
- 
-               # most won event 
-               country_won = country_win_med.Event.value_counts().to_frame()
-               country_won = country_won.rename(columns={"Event": "Won"})
-               mw_ev = {"event": country_won.index[0], "won": country_won.Won[0]}
-   
-       else:
-            # most repped
-            athletes = country_summer.Name.value_counts().to_frame()
-            athletes = athletes.rename(columns={'Name': 'reps'})
-            athlete_df = country_summer.query("""Name == '{}'""".format(athletes.index[0])).reset_index()
-            games_athlete = athlete_df.groupby(['Games']).count()
-            mr_ath = {"athlete": athletes.index[0], "Sex": athlete_df.Sex[0],  "reps": athletes.reps[0], "Games": games_athlete.index.values}
-    
-            # most decorated
-            country_sum_med = country_summer[~country_summer['Medal'].isnull()]
-            decorated = country_sum_med.Name.value_counts().to_frame()
-            decorated = decorated.rename(columns={'Name':'Dec'})
-            dec_df = country_summer.query("""Name == '{}'""".format(decorated.index[1]))
-            dec_df_gold = dec_df[dec_df.Medal == "Gold"]
-            dec_df_sil = dec_df[dec_df.Medal == "Silver"]
-            dec_df_br = dec_df[dec_df.Medal == "Bronze"]
-            dec_gold = len(dec_df_gold)
-            dec_silver = len(dec_df_sil)
-            dec_bronze = len(dec_df_br)
-            md_ath = {"athlete": decorated.index[0], "decs": decorated.Dec[0], "gold": dec_gold, "silver": dec_silver, "bronze": dec_bronze}
-    
-            if (country != None and year != None):
-                # most participated event
-                country_summer_year = country_summer.query('0Year == {}'.format(year))
-                country_ev = country_summer_year.groupby('Event').count().sort_values(by=['ID'], ascending=False)
-                mp_ev = {"event": country_ev.index[0], "participation": country_ev.Name[0]}
-    
-                # most won event
-                country_sum_med_yr = country_summer_year[~country_summer_year['Medal'].isnull()]
-                country_won = country_sum_med_yr.Event.value_counts().to_frame()
-                country_won = country_won.rename(columns={"Event": "Won"})
-                mw_ev = {"event": country_won.index[0], "won": country_won.Won[0]}
-    
-            else:
-                 # most participated event
-                 country_ev = country_summer.groupby('Event').count().sort_values(by=['ID'], ascending=False)
-                 mp_ev = {"event": country_ev.index[0], "participation": country_ev.Name[0]}
-    
-                 # most won event 
-                 country_won = country_sum_med.Event.value_counts().to_frame()
-                 country_won = country_won.rename(columns={"Event": "Won"})
-                 mw_ev = {"event": country_won.index[0], "won": country_won.Won[0]}
-    
-     return [html.Div(
-            id="stats-inner",
-            children = [
-                html.Section(
-                    id="rep-stats-card-sec",
-                    children = [
-                        html.H2("Most Participations: " + mr_ath['athlete']),
-                        html.H5("Representations: " + str(mr_ath['reps'])),
-                        html.P(mr_ath['Sex'])
-                    ]
-                ),
-                html.Section(
-                    id="dec-stats-card",
-                    children = [
-                        html.H2("Most Decorated Athlete: " + md_ath['athlete']),
-                        html.H5("Medals: " + str(md_ath['decs'])),
-                    ]
-                ),
-                html.Section(
-                    id="ev-part-stats-card-sec",
-                    children = [
-                        html.H2("Most Participated Event: " + mp_ev['event']),
-                        html.H5("Participation: " + str(mp_ev['participation']))
-                    ]
-                ),
-                html.Section(
-                    id="ev-won-stats-card-sec",
-                    children = [
-                        html.H2(mw_ev['event']),
-                        html.H5("Most Won Event: " + str(mw_ev['won']))
-                    ]
-                ),
-            ]
-            )]
-
-
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+
+                                

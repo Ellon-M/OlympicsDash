@@ -20,7 +20,6 @@ colors = {
     'text': 'black'
 }
 
-
 fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 fig.update_layout(
@@ -53,4 +52,7 @@ app.layout = html.Div(children=[
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+
+for range in (10):
 
