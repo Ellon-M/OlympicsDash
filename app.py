@@ -79,11 +79,14 @@ app.layout = html.Div(
                     ]
                 ),
                 html.Div(
-                        id="graph-content",
+                    id="graph-content",
+                        ),
+                html.Div(
+                    id="right-graph-content"
                         ),
                 html.Div(
                     id="stats-content"
-                )
+                        )
                 ]
 )
 
@@ -565,6 +568,366 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
 
 
 @app.callback(
+    Output('right-graph-content', 'children'),
+    inputs = [Input('countries-dropdown', 'value'),
+              Input('year-dropdown', 'value'),
+              Input('event-dropdown', 'value'),
+              Input('summer-btn', 'n_clicks'),
+              Input('winter-btn', 'n_clicks')
+             ]
+)
+def getRightGraphs(country, year, sport, summerbtn, winterbtn):
+
+     country_winter = df.query('Team == "{}" and Season == "Winter"'.format(country)).sort_values(by=['ID'], ascending=False)
+     country_summer = df.query('Team == "{}" and Season == "Summer"'.format(country)).sort_values(by=['ID'], ascending=False)
+
+     country_wint = country_winter.groupby(['Medal']).count().reset_index()
+     country_summ = country_summer.groupby(['Medal']).count().reset_index()
+
+     if (('summer-btn.n_clicks' in changes) and 'winter-btn.n_clicks' not in changes):
+        
+        country_summer_year = country_summer.query('Year == {}'.format(year))
+        country_summ_year = country_summer_year.groupby(['Medal']).count().reset_index()
+
+        if (country != None and year != None):
+            csy = country_summer.query('Year == {}'.format(year))
+
+            v_fig = px.violin(csy, y="Height", color="Sex",
+                violinmode='overlay',
+                hover_data=country_summer.columns,
+                color_discrete_map={
+                    "F": "#FFD580", "M": "#FF7518"
+                },
+                width=600, height=600,
+               )
+
+            v_fig.update_layout(
+                title="Male and Female Heights in Summer {}".format(year),
+                font=dict(
+                    size=14,
+                 ),
+                title_x = 0.5,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
+
+            p_fig = px.pie(country_summ_year, values='ID', names='Medal', hole=.4, color="Medal",
+             color_discrete_map={
+                "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
+                },width=600, height=600)
+
+            p_fig.update_layout(
+                title="Medals Won, Summer {}".format(year),
+                font=dict(
+                    size=14,
+                ),
+                title_x = 0.5,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
+
+
+        elif (country != None and year == None and sport == None):
+            v_fig = px.violin(country_summer, y="Height", color="Sex",
+                violinmode='overlay',
+                hover_data=country_summer.columns,
+                color_discrete_map={
+                    "F": "#FFD580", "M": "#FF7518"
+                },
+                width=600, height=600,
+               )
+
+            v_fig.update_layout(
+                title="Male and Female Heights, Summer",
+                font=dict(
+                    size=14,
+                ),
+                title_x = 0.5,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
+
+            p_fig = px.pie(country_summ, values='ID', names='Medal', hole=.4, color="Medal",
+             color_discrete_map={
+                "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
+                },width=600, height=600)
+
+            p_fig.update_layout(
+                title="Medals Won, Summer",
+                font=dict(
+                    size=14,
+                ),
+                title_x = 0.5,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
+
+
+        else:
+             raise ValueError("Incorrectly specified data")
+
+     elif (('winter-btn.n_clicks' in changes)):
+
+         country_winter_year = country_winter.query('Year == {}'.format(year))
+         country_wint_year = country_winter_year.groupby(['Medal']).count().reset_index()
+
+         if (country != None and year != None):
+             cwy = country_winter.query('Year == {}'.format(year))
+ 
+             v_fig = px.violin(cwy, y="Height", color="Sex",
+                 violinmode='overlay',
+                 hover_data=country_winter.columns,
+                 color_discrete_map={
+                 "F": "#ff6fff", "M": "#c84186"
+                 },
+                 width=600, height=600,
+                )
+ 
+             v_fig.update_layout(
+                 title="Male and Female Heights in Winter {}".format(year),
+                 font=dict(
+                     size=14,
+                  ),
+                 title_x = 0.5,
+                 paper_bgcolor='rgba(0,0,0,0)',
+                 plot_bgcolor='rgba(0,0,0,0)'
+             )
+
+             p_fig = px.pie(country_wint_year, values='ID', names='Medal', hole=.4, color="Medal",
+             color_discrete_map={
+                "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
+                },width=600, height=600)
+
+             p_fig.update_layout(
+                title="Medals Won, Winter {}".format(year),
+                font=dict(
+                    size=14,
+                ),
+                title_x = 0.5,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+             )
+
+ 
+         elif (country != None and year == None and sport == None):
+             v_fig = px.violin(country_winter, y="Height", color="Sex",
+                 violinmode='overlay',
+                 hover_data=country_winter.columns,
+                 color_discrete_map={
+                 "F": "#ff6fff", "M": "#c84186"
+                 },
+                 width=600, height=600,
+                )
+ 
+             v_fig.update_layout(
+                 title="Male and Female Heights, Winter",
+                 font=dict(
+                     size=14,
+                 ),
+                 title_x = 0.5,
+                 paper_bgcolor='rgba(0,0,0,0)',
+                 plot_bgcolor='rgba(0,0,0,0)'
+             )
+
+             p_fig = px.pie(country_wint, values='ID', names='Medal', hole=.4, color="Medal",
+             color_discrete_map={
+                "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
+                },width=600, height=600)
+
+             p_fig.update_layout(
+                title="Medals Won, Winter",
+                font=dict(
+                    size=14,
+                ),
+                title_x = 0.5,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+)
+
+ 
+         else:
+              raise ValueError("Incorrectly specified data")
+
+     else:
+        if (changes[-1:] == ["winter-btn.n_clicks"] or ["year-dropdown.value"] or ["event-dropdown.value"]):
+
+          country_winter_year = country_winter.query('Year == {}'.format(year))
+          country_wint_year = country_winter_year.groupby(['Medal']).count().reset_index()
+
+          if (country != None and year != None):
+              cwy = country_winter.query('Year == {}'.format(year))
+ 
+              v_fig = px.violin(cwy, y="Height", color="Sex",
+                  violinmode='overlay',
+                  hover_data=country_winter.columns,
+                  color_discrete_map={
+                  "F": "#ff6fff", "M": "#c84186"
+                  },
+                  width=600, height=600,
+                 )
+ 
+              v_fig.update_layout(
+                  title="Male and Female Heights in Winter {}".format(year),
+                  font=dict(
+                      size=14,
+                   ),
+                  title_x = 0.5,
+                  paper_bgcolor='rgba(0,0,0,0)',
+                  plot_bgcolor='rgba(0,0,0,0)'
+              )
+
+              p_fig = px.pie(country_wint_year, values='ID', names='Medal', hole=.4, color="Medal",
+                    color_discrete_map={
+                        "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
+                    },width=600, height=600)
+ 
+              p_fig.update_layout(
+                  title="Medals Won, Winter {}".format(year),
+                  font=dict(
+                      size=14,
+                  ),
+                  title_x = 0.5,
+                  paper_bgcolor='rgba(0,0,0,0)',
+                  plot_bgcolor='rgba(0,0,0,0)'
+               )
+
+
+
+ 
+          elif (country != None and year == None and sport == None):
+                v_fig = px.violin(country_winter, y="Height", color="Sex",
+                   violinmode='overlay',
+                   hover_data=country_winter.columns,
+                   color_discrete_map={
+                     "F": "#ff6fff", "M": "#c84186"
+                  },
+                   width=600, height=600,
+                 )
+ 
+                v_fig.update_layout(
+                   title="Male and Female Heights, Winter",
+                   font=dict(
+                      size=14,
+                   ),
+                   title_x = 0.5,
+                   paper_bgcolor='rgba(0,0,0,0)',
+                   plot_bgcolor='rgba(0,0,0,0)'
+                )
+
+                p_fig = px.pie(country_wint, values='ID', names='Medal', hole=.4, color="Medal",
+                      color_discrete_map={
+                          "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
+                      },width=600, height=600)
+ 
+                p_fig.update_layout(
+                    title="Medals Won, Winter",
+                    font=dict(
+                        size=14,
+                    ),
+                    title_x = 0.5,
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    plot_bgcolor='rgba(0,0,0,0)'
+                )
+
+ 
+          else:
+               raise ValueError("Incorrectly specified data")
+        
+        else:
+          
+           country_summer_year = country_summer.query('Year == {}'.format(year))
+           country_summ_year = country_summer_year.groupby(['Medal']).count().reset_index()
+
+           if (country != None and year != None):
+             csy = country_summer.query('Year == {}'.format(year))
+ 
+             v_fig = px.violin(csy, y="Height", color="Sex",
+                 violinmode='overlay',
+                 hover_data=country_summer.columns,
+                 color_discrete_map={
+                  "F": "#FFD580", "M": "#FF7518"
+                 },
+                 width=600, height=600,
+                )
+ 
+             v_fig.update_layout(
+                 title="Male and Female Heights in Summer {}".format(year),
+                 font=dict(
+                      size=14,
+                  ),
+                 title_x = 0.5,
+                 paper_bgcolor='rgba(0,0,0,0)',
+                 plot_bgcolor='rgba(0,0,0,0)'
+             )
+
+             p_fig = px.pie(country_summ_year, values='ID', names='Medal', hole=.4, color="Medal",
+               color_discrete_map={
+                  "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
+                  },width=600, height=600)
+ 
+             p_fig.update_layout(
+                  title="Medals Won, Summer {}".format(year),
+                  font=dict(
+                      size=14,
+                  ),
+                  title_x = 0.5,
+                  paper_bgcolor='rgba(0,0,0,0)',
+                  plot_bgcolor='rgba(0,0,0,0)'
+             )
+
+ 
+           elif (country != None and year == None and sport == None):
+             v_fig = px.violin(country_summer, y="Height", color="Sex",
+                 violinmode='overlay',
+                 hover_data=country_summer.columns,
+                 color_discrete_map={
+                   "F": "#FFD580", "M": "#FF7518"
+                 },
+                 width=600, height=600,
+                )
+ 
+             v_fig.update_layout(
+                 title="Male and Female Heights, Summer",
+                 font=dict(
+                     size=14,
+                 ),
+                 title_x = 0.5,
+                 paper_bgcolor='rgba(0,0,0,0)',
+                 plot_bgcolor='rgba(0,0,0,0)'
+             )
+
+             p_fig = px.pie(country_summ, values='ID', names='Medal', hole=.4, color="Medal",
+               color_discrete_map={
+                  "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
+                  },width=600, height=600)
+ 
+             p_fig.update_layout(
+                  title="Medals Won, Summer",
+                  font=dict(
+                      size=14,
+                  ),
+                  title_x = 0.5,
+                  paper_bgcolor='rgba(0,0,0,0)',
+                  plot_bgcolor='rgba(0,0,0,0)'
+              )
+
+ 
+           else:
+              raise ValueError("Incorrectly specified data")
+
+     return html.Div(
+                id="right-container",
+                children=dcc.Loading(
+                  className="graph-wrapper",
+                  children=[dcc.Graph(id="right-graph-violin", figure=v_fig),
+                            dcc.Graph(id="right-graph-pie", figure=p_fig)]
+                 ),
+
+            )
+
+
+
+@app.callback(
              Output('stats-content','children'),
     inputs = [Input('countries-dropdown', 'value'),
               Input('year-dropdown', 'value'),
@@ -589,6 +952,7 @@ def getStats(country, year, sport, summerbtn, winterbtn):
 
         # most decorated
         country_sum_med = country_summer[~country_summer['Medal'].isnull()]
+ 
         decorated = country_sum_med.Name.value_counts().to_frame()
         decorated = decorated.rename(columns={'Name':'Dec'})
         dec_df = country_summer.query("""Name == '{}'""".format(decorated.index[0]))
