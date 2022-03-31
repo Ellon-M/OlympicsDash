@@ -33,54 +33,59 @@ app.layout = html.Div(
                     ]
                 ),
                 html.Div(
-                    id="left-col",
+                    id="top-sec",
                     children = [
-                        html.Section(
-                            className="country-dropdown-sec",
+                        html.Div(
+                            id="left-col",
                             children = [
-                                 NamedDropdown(
-                                     name = "Select Country:",
-                                    id = "countries-dropdown",
-                                    options = [
-                                        {"label": "Canada",
-                                        "value": "Canada"},
-                                        {"label": "United States",
-                                        "value": "United States"}
-                                        ],
-                                    clearable = False,
-                                    searchable = False,
-                                    value="Canada",
-                                    )
-                                 ]
-                             ),
-                         html.Section(
-                             className = "year-dropdown-sec",
-                             children = [
-                                NamedDropdown(
-                                    name = "Select Year:",
-                                     id = "year-dropdown",
-                                     clearable = False,
-                                     searchable = False,
-                                    ),
+                                html.Section(
+                                    className="country-dropdown-sec",
+                                    children = [
+                                        NamedDropdown(
+                                            name = "Select Country:",
+                                            id = "countries-dropdown",
+                                            options = [
+                                                {"label": "Canada",
+                                                "value": "Canada"},
+                                                {"label": "United States",
+                                                "value": "United States"}
+                                            ],
+                                            clearable = False,
+                                            searchable = False,
+                                            value="Canada",
+                                        )
+                                    ]
+                                ),
+                                html.Section(
+                                    className = "year-dropdown-sec",
+                                    children = [
+                                        NamedDropdown(
+                                            name = "Select Year:",
+                                            id = "year-dropdown",
+                                            clearable = False,
+                                            searchable = False,
+                                            ),
                                     
-                                ]
-                            ),
-                          html.Section(
-                              className="sport-dropdown-sec",
-                              children = [
-                                NamedDropdown(
-                                    name = "Select Sport:",
-                                     id = "event-dropdown",
-                                     clearable = False,
-                                     searchable = False,
-                                )
+                                        ]
+                                ),
+                                html.Section(
+                                    className="sport-dropdown-sec",
+                                    children = [
+                                        NamedDropdown(
+                                            name = "Select Sport:",
+                                            id = "event-dropdown",
+                                            clearable = False,
+                                            searchable = False,
+                                        )
+                                    ]
+                                ),
                             ]
+                        ),
+                        html.Div(
+                            id="graph-content",
                         ),
                     ]
                 ),
-                html.Div(
-                    id="graph-content",
-                        ),
                 html.Div(
                     id="right-graph-content"
                         ),
@@ -164,6 +169,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                       title="Summer Events in {}, {}".format(sport, year),
                                       paper_bgcolor='rgba(0,0,0,0)',
                                       plot_bgcolor='rgba(0,0,0,0)',
+                                      font_family='Arial',
                                       font = dict(size=14),
                                       yaxis_title="Athlete count",
                                      )
@@ -185,6 +191,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                       paper_bgcolor='rgba(0,0,0,0)',
                                       plot_bgcolor='rgba(0,0,0,0)',
                                       font = dict(size=14),
+                                      font_family='Arial',
                                    )
 
 
@@ -206,6 +213,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                           paper_bgcolor='rgba(0,0,0,0)',
                                           plot_bgcolor='rgba(0,0,0,0)',
                                           font = dict(size=14),
+                                          font_family='Arial',
                                            )
 
 
@@ -218,9 +226,9 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                              y = country_summer_medals_count['Medal'],
                              mode='markers',
                              marker=dict(
-                             size=18,
+                             size=20,
                              color= country_summer_medals_count['Medal'],
-                             colorscale='Burg',
+                             colorscale='Pinkyl',
                              showscale=True
                             )
                         ))  
@@ -233,6 +241,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                 font=dict(
                     size=14,
                 ),
+                font_family='Arial',
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)'
              )
@@ -271,6 +280,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                      paper_bgcolor='rgba(0,0,0,0)',
                                      plot_bgcolor='rgba(0,0,0,0)',
                                      font = dict(size=14),
+                                     font_family='Arial',
                                      yaxis_title="Athlete count",
                                     )
 
@@ -292,6 +302,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                          paper_bgcolor='rgba(0,0,0,0)',
                                          plot_bgcolor='rgba(0,0,0,0)',
                                          font = dict(size=14),
+                                         font_family='Arial',
                                          )
 
         elif (country != None and year != None and sport == None):
@@ -310,6 +321,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                      paper_bgcolor='rgba(0,0,0,0)',
                                      plot_bgcolor='rgba(0,0,0,0)',
                                      font = dict(size=14),
+                                     font_family='Arial',
                                      )
 
 
@@ -324,9 +336,9 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                              y = country_winter_medals_count['Medal'],
                              mode='markers',
                              marker=dict(
-                             size=18,
+                             size=20,
                              color= country_winter_medals_count['Medal'],
-                             colorscale='magenta',
+                             colorscale='Purp',
                              showscale=True
                             )
              ))
@@ -340,6 +352,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                 font=dict(
                     size=14,
                 ),
+                font_family='Arial',
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)'
              )
@@ -383,6 +396,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                     paper_bgcolor='rgba(0,0,0,0)',
                                     plot_bgcolor='rgba(0,0,0,0)',
                                     font = dict(size=14),
+                                    font_family='Arial',
                                     yaxis_title="Athlete count",
                                    )
 
@@ -402,7 +416,9 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                     paper_bgcolor='rgba(0,0,0,0)',
                                     plot_bgcolor='rgba(0,0,0,0)',
                                     font = dict(size=14),
+                                    font_family='Arial',
                                     )
+                                    
                 
 
 
@@ -423,6 +439,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                         paper_bgcolor='rgba(0,0,0,0)',
                                         plot_bgcolor='rgba(0,0,0,0)',
                                         font = dict(size=14),
+                                        font_family='Arial',
                                         )
 
 
@@ -436,9 +453,9 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                              y = country_winter_medals_count['Medal'],
                              mode='markers',
                              marker=dict(
-                             size=18,
+                             size=20,
                              color= country_winter_medals_count['Medal'],
-                             colorscale='magenta',
+                             colorscale='Purp',
                              showscale=True
                             )
                 ))
@@ -451,6 +468,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                     font=dict(
                         size=14,
                     ),
+                    font_family='Arial',
                     paper_bgcolor='rgba(0,0,0,0)',
                     plot_bgcolor='rgba(0,0,0,0)'
                 )
@@ -478,6 +496,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                      paper_bgcolor='rgba(0,0,0,0)',
                                      plot_bgcolor='rgba(0,0,0,0)',
                                      font = dict(size=14),
+                                     font_family='Arial',
                                      yaxis_title="Athlete count",
                                     )
 
@@ -498,6 +517,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                      paper_bgcolor='rgba(0,0,0,0)',
                                      plot_bgcolor='rgba(0,0,0,0)',
                                      font = dict(size=14),
+                                     font_family='Arial',
                                      )
 
 
@@ -519,6 +539,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                                          paper_bgcolor='rgba(0,0,0,0)',
                                          plot_bgcolor='rgba(0,0,0,0)',
                                          font = dict(size=14),
+                                         font_family='Arial',
                                          )
 
 
@@ -533,9 +554,9 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                              y = country_summer_medals_count['Medal'],
                              mode='markers',
                              marker=dict(
-                             size=18,
+                             size=20,
                              color= country_summer_medals_count['Medal'],
-                             colorscale='magenta',
+                             colorscale='Pinkyl',
                              showscale=True
                             )
                         ))
@@ -548,6 +569,7 @@ def displayGraphs(country, year, sport, sumbtn, winbtn):
                     font=dict(
                         size=14,
                     ),
+                    font_family='Arial',
                     paper_bgcolor='rgba(0,0,0,0)',
                     plot_bgcolor='rgba(0,0,0,0)'
                 )
@@ -598,7 +620,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 color_discrete_map={
                     "F": "#FFD580", "M": "#FF7518"
                 },
-                width=600, height=600,
+                width=500, height=500,
                )
 
             v_fig.update_layout(
@@ -606,6 +628,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 font=dict(
                     size=14,
                  ),
+                font_family='Arial',
                 title_x = 0.5,
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)'
@@ -621,9 +644,11 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 font=dict(
                     size=14,
                 ),
+                font_family='Arial',
                 title_x = 0.5,
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                width=500, height=500
             )
 
 
@@ -634,7 +659,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 color_discrete_map={
                     "F": "#FFD580", "M": "#FF7518"
                 },
-                width=600, height=600,
+                width=500, height=500,
                )
 
             v_fig.update_layout(
@@ -642,6 +667,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 font=dict(
                     size=14,
                 ),
+                font_family='Arial',
                 title_x = 0.5,
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)'
@@ -657,9 +683,11 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 font=dict(
                     size=14,
                 ),
+                font_family='Arial',
                 title_x = 0.5,
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                width=500, height=500
             )
 
 
@@ -680,7 +708,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                  color_discrete_map={
                  "F": "#ff6fff", "M": "#c84186"
                  },
-                 width=600, height=600,
+                 width=500, height=500,
                 )
  
              v_fig.update_layout(
@@ -688,6 +716,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                  font=dict(
                      size=14,
                   ),
+                 font_family='Arial',
                  title_x = 0.5,
                  paper_bgcolor='rgba(0,0,0,0)',
                  plot_bgcolor='rgba(0,0,0,0)'
@@ -703,9 +732,12 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 font=dict(
                     size=14,
                 ),
+                font_family='Arial',
                 title_x = 0.5,
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                width=500, height=500
+
              )
 
  
@@ -716,7 +748,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                  color_discrete_map={
                  "F": "#ff6fff", "M": "#c84186"
                  },
-                 width=600, height=600,
+                 width=500, height=500,
                 )
  
              v_fig.update_layout(
@@ -724,6 +756,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                  font=dict(
                      size=14,
                  ),
+                 font_family='Arial',
                  title_x = 0.5,
                  paper_bgcolor='rgba(0,0,0,0)',
                  plot_bgcolor='rgba(0,0,0,0)'
@@ -739,10 +772,12 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 font=dict(
                     size=14,
                 ),
+                font_family='Arial',
                 title_x = 0.5,
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
-)
+                plot_bgcolor='rgba(0,0,0,0)',
+                width=500, height=500
+            )
 
  
          else:
@@ -763,7 +798,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                   color_discrete_map={
                   "F": "#ff6fff", "M": "#c84186"
                   },
-                  width=600, height=600,
+                  width=500, height=500,
                  )
  
               v_fig.update_layout(
@@ -771,6 +806,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                   font=dict(
                       size=14,
                    ),
+                  font_family='Arial',
                   title_x = 0.5,
                   paper_bgcolor='rgba(0,0,0,0)',
                   plot_bgcolor='rgba(0,0,0,0)'
@@ -779,16 +815,17 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
               p_fig = px.pie(country_wint_year, values='ID', names='Medal', hole=.4, color="Medal",
                     color_discrete_map={
                         "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
-                    },width=600, height=600)
+                    },width=500, height=500)
  
               p_fig.update_layout(
                   title="Medals Won, Winter {}".format(year),
                   font=dict(
                       size=14,
                   ),
+                  font_family='Arial',
                   title_x = 0.5,
                   paper_bgcolor='rgba(0,0,0,0)',
-                  plot_bgcolor='rgba(0,0,0,0)'
+                  plot_bgcolor='rgba(0,0,0,0)',
                )
 
 
@@ -801,7 +838,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                    color_discrete_map={
                      "F": "#ff6fff", "M": "#c84186"
                   },
-                   width=600, height=600,
+                   width=500, height=500,
                  )
  
                 v_fig.update_layout(
@@ -809,6 +846,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                    font=dict(
                       size=14,
                    ),
+                   font_family='Arial',
                    title_x = 0.5,
                    paper_bgcolor='rgba(0,0,0,0)',
                    plot_bgcolor='rgba(0,0,0,0)'
@@ -817,13 +855,14 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                 p_fig = px.pie(country_wint, values='ID', names='Medal', hole=.4, color="Medal",
                       color_discrete_map={
                           "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
-                      },width=600, height=600)
+                      },width=500, height=500)
  
                 p_fig.update_layout(
                     title="Medals Won, Winter",
                     font=dict(
                         size=14,
                     ),
+                    font_family='Arial',
                     title_x = 0.5,
                     paper_bgcolor='rgba(0,0,0,0)',
                     plot_bgcolor='rgba(0,0,0,0)'
@@ -847,7 +886,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                  color_discrete_map={
                   "F": "#FFD580", "M": "#FF7518"
                  },
-                 width=600, height=600,
+                 width=500, height=500,
                 )
  
              v_fig.update_layout(
@@ -855,6 +894,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                  font=dict(
                       size=14,
                   ),
+                 font_family='Arial',
                  title_x = 0.5,
                  paper_bgcolor='rgba(0,0,0,0)',
                  plot_bgcolor='rgba(0,0,0,0)'
@@ -863,13 +903,14 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
              p_fig = px.pie(country_summ_year, values='ID', names='Medal', hole=.4, color="Medal",
                color_discrete_map={
                   "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
-                  },width=600, height=600)
+                  },width=500, height=500)
  
              p_fig.update_layout(
                   title="Medals Won, Summer {}".format(year),
                   font=dict(
                       size=14,
                   ),
+                  font_family='Arial',
                   title_x = 0.5,
                   paper_bgcolor='rgba(0,0,0,0)',
                   plot_bgcolor='rgba(0,0,0,0)'
@@ -883,7 +924,7 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
                  color_discrete_map={
                    "F": "#FFD580", "M": "#FF7518"
                  },
-                 width=600, height=600,
+                 width=500, height=500,
                 )
  
              v_fig.update_layout(
@@ -899,13 +940,14 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
              p_fig = px.pie(country_summ, values='ID', names='Medal', hole=.4, color="Medal",
                color_discrete_map={
                   "Gold": "#FFD700", "Silver": "#c0c0c0", "Bronze": " #b08d57"
-                  },width=600, height=600)
+                  },width=500, height=500)
  
              p_fig.update_layout(
                   title="Medals Won, Summer",
                   font=dict(
                       size=14,
                   ),
+                  font_family='Arial',
                   title_x = 0.5,
                   paper_bgcolor='rgba(0,0,0,0)',
                   plot_bgcolor='rgba(0,0,0,0)'
@@ -915,15 +957,22 @@ def getRightGraphs(country, year, sport, summerbtn, winterbtn):
            else:
               raise ValueError("Incorrectly specified data")
 
-     return html.Div(
-                id="right-container",
+     return [html.Div(
+                id="right-container-violin",
                 children=dcc.Loading(
                   className="graph-wrapper",
                   children=[dcc.Graph(id="right-graph-violin", figure=v_fig),
-                            dcc.Graph(id="right-graph-pie", figure=p_fig)]
+                           ]
                  ),
+            ),
+            html.Div(
+                id="right-container-pie",
+                children=dcc.Loading(
+                    className="graph-wrapper",
+                    children=[dcc.Graph(id="right-graph-pie", figure=p_fig)]
+                ),
+            )]
 
-            )
 
 
 
@@ -1122,30 +1171,53 @@ def getStats(country, year, sport, summerbtn, winterbtn):
                 html.Section(
                     id="rep-stats-card-sec",
                     children = [
-                        html.H2("Most Participations: " + mr_ath['athlete']),
-                        html.H5("Representations: " + str(mr_ath['reps'])),
-                        html.P(mr_ath['Sex'])
+                        html.P("Most Participations:"),
+                        html.Div(
+                            className="bottom-stats",
+                            children = [
+                                html.H4(mr_ath['athlete'], id="bottom-stats-left-1"),
+                                html.H4(str(mr_ath['reps']), id="bottom-stats-right-1"),
+                            ]
+                        )
                     ]
                 ),
                 html.Section(
                     id="dec-stats-card",
                     children = [
-                        html.H2("Most Decorated Athlete: " + md_ath['athlete']),
-                        html.H5("Medals: " + str(md_ath['decs'])),
+                        html.P("Most Decorated Athlete:"),
+                        html.Div(
+                            className="bottom-stats",
+                            children = [   
+                                html.H4(md_ath['athlete'], id="bottom-stats-left-2",),
+                                html.H4(str(md_ath['decs']), id="bottom-stats-right-2",)
+                            ]
+                        )
                     ]
                 ),
                 html.Section(
                     id="ev-part-stats-card-sec",
                     children = [
-                        html.H2("Most Participated Event: " + mp_ev['event']),
-                        html.H5("Participation: " + str(mp_ev['participation']))
+                        html.P("Most Participated Event:"), 
+                        html.Div(
+                            className="bottom-stats",
+                            children = [
+                                html.H4(mp_ev['event'], id="bottom-stats-left-3"),
+                                html.H4(str(mp_ev['participation']), id="bottom-stats-right-3")
+                            ]
+                        )
                     ]
                 ),
                 html.Section(
                     id="ev-won-stats-card-sec",
                     children = [
-                        html.H2(mw_ev['event']),
-                        html.H5("Most Won Event: " + str(mw_ev['won']))
+                        html.P("Most Won Event:"),
+                        html.Div(
+                            className="bottom-stats",
+                            children = [
+                                html.H4(mw_ev['event'], id="bottom-stats-left-4"),
+                                html.H5(str(mw_ev['won']), id="bottom-stats-right-4")
+                            ]
+                        )
                     ]
                 ),
             ]
