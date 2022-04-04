@@ -1,8 +1,21 @@
+body {
+    overflow-x: hidden;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
 .container {
-    width: 100vw;
+    width: 100vw !important;
+    overflow-x: hidden;
     height: 100vh;
     position: relative;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('https://res.cloudinary.com/denphvygd/image/upload/c_crop,o_14,w_1543,x_187/v1649083525/olympicsdash/olympics_lightened_fvbfnu_jrp2no.png');
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #top-dropdown {
@@ -10,24 +23,73 @@
     height: 4vh;
     text-align: center;
     margin-top: 2vh;
-    margin-left: 40vw;
+    margin-left: 44vw;
 }
 
+#buttons-wrap {
+    border-radius: 40px;
+    background-color: #f1f1f1;
+    align-items: center;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: 13vw;
+    margin-left: 4vw;
+}
+
+#summer-btn {
+   border: none;
+   padding: 1.06rem;
+   border-radius: 40px;
+   font-weight: 400;
+   font-size: 0.91rem;
+   width: 6vw;
+   text-transform: uppercase;
+}
+
+
+#winter-btn {
+   border: none;
+   padding: 1.06rem;
+   border-radius: 40px; 
+   font-weight: 400;
+   font-size: 0.91rem;
+   width: 6vw;
+   text-transform: uppercase;
+}
+
+
 #left-col {
-    height: 100vh;
+    height: 106vh;
     width: 18vw;
     position: relative;
     align-items: center;
-    margin-top: -6vh;
-    background-color: #e6f7ff;
-    margin-left: -10px;
+    margin-top: -7vh;
+    margin-left: -5px;
     border-radius: 0px 50px 50px 0px;
     filter: drop-shadow(2px 8px 10px #bababa);
+    z-index: 10;
+}
 
+#top-left-col {
+    height: 8vh;
+    width: 100%;
+}
+
+#flag-wrap {
+    width: 60.5%;
+    margin-bottom: 18vh;
+}
+
+#country-left-col {
+    font-weight: 500;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 2.2rem;
 }
 
 .country-dropdown-sec {
-    margin-top: 25vh;
+    margin-top: 5vh;
 }
 
 #left-col > section {
@@ -60,7 +122,7 @@
     display: flex;
     float: right;
     position: relative;
-    margin-top: -45vh;
+    margin-top: -50vh;
     align-items: center;
     text-align: center;
     height: 45vh;
@@ -68,14 +130,12 @@
 }
 
 #right-graph-violin {
-    width: 40%;
     text-align: center;
     align-self: center;
 }
 
 #right-graph-pie {
-    width: 40%;
-    padding: 1.5rem;
+    padding-left: 1.5rem;
 }
 
 #rep-stats-card-sec {
@@ -83,9 +143,9 @@
     height: 9vh;
     padding-bottom: 4px;
     border-radius: 20px;
-    background-color: #a7a7cf;
+    /*background-color: #a7a7cf; */
     margin-bottom: 24px;
-    filter: drop-shadow(8px 8px 4px #6e6ee0) contrast(120%);
+    /* filter: drop-shadow(8px 8px 4px #6e6ee0) contrast(120%); */
 }
 
 #dec-stats-card {
@@ -93,34 +153,34 @@
     height: 9vh;
     padding-bottom: 4px;
     border-radius: 20px;
-    background-color: #ffbfd4;
+    /* background-color: #ffbfd4; */
     margin-bottom: 24px;
-    filter: drop-shadow(8px 8px 4px #b05bac) contrast(120%);
+    /* filter: drop-shadow(8px 8px 4px #b05bac) contrast(120%); */
 }
 
 #ev-part-stats-card-sec {
     width: 75%;
     height: 9vh;
     padding-bottom: 4px;
-    background-color: #7fbedb;
+   /* background-color: #7fbedb; */
     border-radius: 20px;
     margin-bottom: 24px; 
-    filter: drop-shadow(8px 8px 4px #63a4c2) contrast(120%);
+    /*filter: drop-shadow(8px 8px 4px #63a4c2) contrast(120%); */
 
 }
 
 #ev-won-stats-card-sec {
     width: 75%;
     height: 9vh;
-    background-color: #d9baff;
+    /*background-color: #d9baff; */
     border-radius: 20px;
-    filter: drop-shadow(8px 8px 4px #972cb8) contrast(120%);
+    /*filter: drop-shadow(8px 8px 4px #972cb8) contrast(120%);*/
 }
 
 #stats-inner {
     width: 28vw;
     margin-left: 20vw;
-    margin-top: -45vh;
+    margin-top: -48vh;
     position: relative;
 }
 
@@ -187,4 +247,42 @@ section > p {
      padding-right: 20px;
 }
 
+#footer {
+    width: 100vw;
+    height: 5vh;
+    margin-top: -5vh;
+    float: right;
+    bottom: 0;
+    display: flex;
+}
+
+
+#footer-copyright {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    width: 60vw;
+    margin-right: 6vw;
+    text-align: right;
+    padding-right: 2.6rem;
+    font-family: Arial, sans-serif; 
+    font-style: italic;
+    font-size: 0.95rem;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+#footer-link {
+    font-style: italic;
+    color: black;
+    margin-left: 48vw;
+    font-size: 0.95rem;
+    text-align: left;
+    margin-left: 25vw;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding-top: 2vh;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-family: Arial, sans-serif;
+}
 
